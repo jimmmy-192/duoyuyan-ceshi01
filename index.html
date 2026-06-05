@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>多语言管理迭代</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">多语言管理</div>
+        <nav>
+          <button class="nav-item active">需求管理</button>
+          <button class="nav-item">文案空间</button>
+          <button class="nav-item">发布记录</button>
+          <button class="nav-item">模块设置</button>
+        </nav>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <h1>新需求 / 基本信息</h1>
+            <p>按设计稿流程添加下线 KEY、预读取批量上传内容并提交翻译需求。</p>
+          </div>
+          <div class="top-actions">
+            <button class="btn light" id="openBatch">批量上传</button>
+            <button class="btn primary" id="openOffline">添加下线 KEY</button>
+          </div>
+        </header>
+
+        <section class="form-panel">
+          <div class="section-title">基本信息</div>
+          <div class="form-grid">
+            <label><span>需求名称</span><input value="小红书文案下线需求" /></label>
+            <label><span>业务线</span><select><option>小红书</option><option>rednote</option></select></label>
+            <label><span>目标版本</span><select><option>notes.1.0.16</option><option>notes.1.0.17</option></select></label>
+            <label><span>负责人</span><input value="Jimmy" /></label>
+          </div>
+        </section>
+
+        <section class="change-panel">
+          <div class="panel-head">
+            <div><div class="section-title">文案变更</div><p>当前已添加的下线 KEY 和翻译需求。</p></div>
+            <button class="icon-btn" id="openModule" aria-label="编辑模块设置">⚙</button>
+          </div>
+          <div class="change-list" id="changeList"></div>
+        </section>
+
+        <footer class="sticky-actions">
+          <button class="btn light">保存草稿</button>
+          <button class="btn primary" id="submitDemand">提交翻译需求</button>
+        </footer>
+      </section>
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="mask hidden" id="offlineModal" role="dialog" aria-modal="true">
+      <section class="modal offline-modal">
+        <header class="modal-header"><h2>下线 KEY</h2><button class="close" data-close="offlineModal" aria-label="关闭">×</button></header>
+        <div class="modal-body">
+          <label class="field"><span>KEY <b>*</b></span><select id="keySelect"><option value="greennote">greennote</option><option value="capa_long_text_toollist_title1">capa_long_text_toollist_title1</option></select><small>选择已创建的 key</small></label>
+          <label class="field"><span>下线版本</span><select id="versionSelect"><option value="">请选择下线版本号</option><option value="notes.1.0.16">notes.1.0.16</option><option value="notes.1.0.17">notes.1.0.17</option></select><small>若不填写，将会在所有版本下线。</small></label>
+          <label class="field"><span>中文简体</span><input id="zhText" value="小绿书" readonly /><small>中文文案书写规范，可参考：<a href="#">产品设计 C 端文案规范</a></small></label>
+          <label class="field"><span>备注 <em>选填</em></span><input id="remark" value="备注" /><small>备注文案所在的 UI 元素位置，如 标题/描述/开关/按钮/标签；或备注翻译要求</small></label>
+          <label class="field compact"><span>字符数限制 <em>选填</em> ⓘ</span><input id="limit" value="12" /></label>
+          <div class="field"><span>UI 图 <em>选填</em> ⓘ</span><div class="upload-row"><button class="upload-card" type="button" id="uploadMock"><span class="phone-shot"></span></button><small>支持 jpg/jpeg/png 格式，大小不超过 20M</small></div></div>
+        </div>
+        <footer class="modal-footer"><button class="btn text" data-close="offlineModal">取消</button><button class="btn primary" id="addChange">添加变更</button></footer>
+      </section>
+    </div>
+
+    <div class="mask hidden" id="batchModal" role="dialog" aria-modal="true">
+      <section class="modal batch-modal">
+        <header class="modal-header"><h2>批量上传</h2><button class="close" data-close="batchModal" aria-label="关闭">×</button></header>
+        <div class="modal-body batch-body"><div class="file-chip"><div class="file-icon">X</div><div><strong>文件名.xhs</strong><span>316KB</span><p>上传成功</p></div><button aria-label="移除文件">×</button></div><div class="preview-table" id="previewTable"></div></div>
+        <footer class="modal-footer split"><div>共 <strong>1000</strong> 条</div><div><button class="btn text" data-close="batchModal">取消</button><button class="btn primary" id="confirmBatch">确定</button></div></footer>
+      </section>
+    </div>
+
+    <div class="mask hidden" id="moduleModal" role="dialog" aria-modal="true">
+      <section class="modal small-modal">
+        <header class="modal-header"><h2>编辑模块设置</h2><button class="close" data-close="moduleModal" aria-label="关闭">×</button></header>
+        <div class="modal-body"><label class="field"><span>模块名称</span><input value="模块1" /></label><label class="field"><span>默认下线版本</span><select><option>notes.1.0.16</option><option>notes.1.0.17</option></select></label></div>
+        <footer class="modal-footer"><button class="btn text" data-close="moduleModal">取消</button><button class="btn primary" id="saveModule">保存</button></footer>
+      </section>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
