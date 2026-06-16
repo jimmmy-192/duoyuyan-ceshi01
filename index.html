@@ -9,11 +9,15 @@
     <div id="static-preview">
       <header class="preview-topbar">
         <div class="preview-brand"><span>多</span><strong>多语言管理</strong></div>
-        <nav><b>需求管理</b><span>文案空间</span><span>发布记录</span></nav>
+        <nav>
+          <button class="active" id="previewDemandNav">需求管理</button>
+          <button id="previewCopyNav">文案空间</button>
+          <button>发布记录</button>
+        </nav>
         <div class="preview-user">J</div>
       </header>
       <div class="preview-shell">
-        <aside>
+        <aside id="previewAside">
           <small>需求管理</small>
           <button class="active">新建需求</button>
           <button>需求列表</button>
@@ -21,7 +25,7 @@
           <button id="previewModuleButton">模块设置</button>
           <button>语言设置</button>
         </aside>
-        <main>
+        <main id="previewMain">
           <header class="preview-page-header">
             <div><div class="preview-breadcrumb">需求管理 / 新建需求 / 基本信息</div><h1>新需求</h1><p>添加需要下线的 KEY，确认变更后提交翻译需求。</p></div>
             <div class="preview-actions"><button id="previewBatchButton">批量上传</button><button class="primary" id="previewOfflineButton">添加下线 KEY</button></div>
@@ -79,7 +83,7 @@
     <link rel="stylesheet" href="./preview.css">
     <script src="./preview.js"></script>
     <script type="module">
-      if (location.protocol !== 'file:') {
+      if (location.protocol !== 'file:' && ['127.0.0.1', 'localhost'].includes(location.hostname)) {
         document.querySelector('#static-preview')?.remove()
         import('/src/main.ts')
       }
