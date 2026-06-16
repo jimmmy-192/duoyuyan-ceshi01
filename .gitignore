@@ -1,0 +1,5 @@
+.DS_Store
+delight-web-builder/
+node_modules/
+dist/
+.pnpm-store/

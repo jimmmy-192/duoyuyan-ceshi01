@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>多语言管理迭代</title>
+  </head>
+  <body>
+    <div id="static-preview">
+      <header class="preview-topbar">
+        <div class="preview-brand"><span>多</span><strong>多语言管理</strong></div>
+        <nav><b>需求管理</b><span>文案空间</span><span>发布记录</span></nav>
+        <div class="preview-user">J</div>
+      </header>
+      <div class="preview-shell">
+        <aside>
+          <small>需求管理</small>
+          <button class="active">新建需求</button>
+          <button>需求列表</button>
+          <small>配置中心</small>
+          <button id="previewModuleButton">模块设置</button>
+          <button>语言设置</button>
+        </aside>
+        <main>
+          <header class="preview-page-header">
+            <div><div class="preview-breadcrumb">需求管理 / 新建需求 / 基本信息</div><h1>新需求</h1><p>添加需要下线的 KEY，确认变更后提交翻译需求。</p></div>
+            <div class="preview-actions"><button id="previewBatchButton">批量上传</button><button class="primary" id="previewOfflineButton">添加下线 KEY</button></div>
+          </header>
+          <section class="preview-panel">
+            <h2>基本信息</h2>
+            <div class="preview-form-grid">
+              <label>需求名称<input value="小红书文案下线需求"></label>
+              <label>业务线<select><option>小红书</option><option>rednote</option></select></label>
+              <label>目标版本<select><option>notes.1.0.16</option><option>notes.1.0.17</option></select></label>
+              <label>负责人<input value="Jimmy"></label>
+            </div>
+          </section>
+          <section class="preview-panel">
+            <div class="preview-panel-header"><div><h2>文案变更</h2><p>共 <span id="previewCount">1</span> 条变更，提交后进入翻译确认流程。</p></div><button id="previewModuleButton2">编辑模块设置</button></div>
+            <div class="preview-table">
+              <div class="preview-table-head"><span>文案</span><span>翻译内容</span><span>下线版本</span><span>操作</span></div>
+              <div id="previewRows"></div>
+            </div>
+          </section>
+        </main>
+      </div>
+      <footer class="preview-footer"><button id="previewDraftButton">保存草稿</button><button class="primary" id="previewSubmitButton">提交翻译需求</button></footer>
+      <div class="preview-mask hidden" id="previewOfflineModal">
+        <section class="preview-modal">
+          <header><h2>下线 KEY</h2><button data-close="previewOfflineModal">×</button></header>
+          <div class="preview-modal-body">
+            <label>KEY *<select id="previewKey"><option value="greennote">greennote</option><option value="capa_long_text_toollist_title1">capa_long_text_toollist_title1</option></select><small>选择已创建的 KEY，其他字段将自动回填且不可编辑。</small></label>
+            <label>下线版本<select id="previewVersion"><option value="">请选择下线版本号</option><option>notes.1.0.16</option><option>notes.1.0.17</option></select><small>若不填写，将会在所有版本下线。</small></label>
+            <label>中文简体<input id="previewTitle" value="小绿书" readonly></label>
+            <label>备注（选填）<input id="previewRemark" value="标题文案，按现有翻译处理" readonly></label>
+            <label>字符数限制（选填）<input id="previewLimit" value="12" readonly></label>
+            <label>UI 图（选填）<div class="preview-upload"><span></span><small>支持 jpg/jpeg/png，大小不超过 20M</small></div></label>
+          </div>
+          <footer><button data-close="previewOfflineModal">取消</button><button class="primary" id="previewAddOffline">添加变更</button></footer>
+        </section>
+      </div>
+      <div class="preview-mask hidden" id="previewBatchModal">
+        <section class="preview-modal preview-batch-modal">
+          <header><h2>批量上传</h2><button data-close="previewBatchModal">×</button></header>
+          <div class="preview-modal-body"><div class="preview-file"><b>X</b><span><strong>文件名.xhs</strong><small>316KB · 上传成功</small></span></div><div class="preview-batch-list" id="previewBatchList"></div></div>
+          <footer class="preview-split"><span>共 <b>1000</b> 条</span><div><button data-close="previewBatchModal">取消</button><button class="primary" id="previewConfirmBatch">确定</button></div></footer>
+        </section>
+      </div>
+      <div class="preview-mask hidden" id="previewModuleModal">
+        <section class="preview-modal preview-small-modal">
+          <header><h2>编辑模块设置</h2><button data-close="previewModuleModal">×</button></header>
+          <div class="preview-modal-body"><label>模块名称<input value="模块1"></label><label>默认下线版本<select><option>notes.1.0.16</option><option>notes.1.0.17</option></select></label></div>
+          <footer><button data-close="previewModuleModal">取消</button><button class="primary" id="previewSaveModule">保存</button></footer>
+        </section>
+      </div>
+      <div class="preview-toast hidden" id="previewToast"></div>
+    </div>
+    <div id="app"></div>
+    <link rel="stylesheet" href="./preview.css">
+    <script src="./preview.js"></script>
+    <script type="module">
+      if (location.protocol !== 'file:') {
+        document.querySelector('#static-preview')?.remove()
+        import('/src/main.ts')
+      }
+    </script>
+  </body>
+</html>
